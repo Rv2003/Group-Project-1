@@ -13,6 +13,7 @@ void pre_allocated() { //used to create currently running process (currently on 
 	list.display();
 }
 
+};
 int main()
 {   
 	
