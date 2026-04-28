@@ -44,7 +44,7 @@ public:
     void allocate_memory(int mem, string k) {
         node* temp;
        
-        if (max > mem) {
+        if (max >= mem) {
             temp = new node(k, mem);
 
             if (head == NULL) {
@@ -57,7 +57,8 @@ public:
 
             }
             max= max - mem;
-               
+           
+            storage = storage + mem;    // to keep track of the used memorys              
         }
         else {
             cout << "FULL";
@@ -67,11 +68,15 @@ public:
 
     void display() {
 
-        if (max > 0) {
-            node* freeBlock = new node("FREE", max);  // ONE free block at the end
-            tail->next = freeBlock;
-            tail = freeBlock;
-        }
+       // if (max > 0) {
+           // node* freeBlock = new node("FREE", max);  // ONE free block at the end
+           // tail->next = freeBlock;
+           // tail = freeBlock;
+
+           //error fixing to just print without adding a free block at the end,
+          
+
+
         if (head == NULL) {
             cout << "Memory is empty." << endl;
             return;
@@ -92,6 +97,15 @@ public:
             address += curr->memory;
             curr = curr->next;
         }
+
+        // just free block print
+
+            if (max > 0) {
+         cout << "| " << address
+         << "\t\t| FREE"
+         << "\t  | " << max << " KB\t\t|" << endl;
+        }
+
 
         cout << "------------------------------------------" << endl;
         cout << "Total Used: " << storage << " KB" << endl;
