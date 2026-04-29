@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Data Management System.cpp">
+    <ClCompile Include="Data_Management_System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
