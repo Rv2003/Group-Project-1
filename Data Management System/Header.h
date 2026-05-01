@@ -1,4 +1,4 @@
-#pragma once
+
 using namespace std;
 
 
@@ -30,6 +30,7 @@ private:
     node* head;
     node* tail;
     int storage;
+    bool freeAdded = false;  // to fix adding free node at the end repetedly each time calling display
     
 public:
     int max = 16384;
@@ -56,6 +57,7 @@ public:
                 tail = temp;
 
             }
+            
             max= max - mem;
                
         }
@@ -65,12 +67,61 @@ public:
 
     }
 
-    void display() {
 
-        if (max > 0) {
-            node* freeBlock = new node("FREE", max);  // ONE free block at the end
+
+    void best_fit(string proce,int size) {
+        node* current = head;
+        node* temp = head;
+        node* best = NULL;
+        node* check = head;
+       
+
+        while (current != NULL) {
+            if (current->process == "FREE" && current->memory >= size) {
+                if (best == NULL || current->memory < best->memory) {
+                    best = current;
+                }
+            }
+            current = current->next;
+        }
+
+
+        if (best == NULL) {
+            cout << "Memory Full" << endl;
+            return;
+        }
+
+
+        if (best->memory>size) {
+            node* temp = new node("FREE", best->memory - size);
+            best->memory = size;
+            best->process = proce;
+            node* current= best->next;
+            best->next=temp;
+            temp->next = current;
+            if (best == tail) {
+                tail = current;
+            }
+            
+            
+             
+        }
+        else {
+            best->memory = size;
+            best->process = proce;
+        
+        }
+
+    
+    }
+
+    void display() {
+        
+        if (max > 0 && !freeAdded) {
+            node* freeBlock = new node("FREE", max);
             tail->next = freeBlock;
             tail = freeBlock;
+            freeAdded = true;
         }
         if (head == NULL) {
             cout << "Memory is empty." << endl;
@@ -94,7 +145,7 @@ public:
         }
 
         cout << "------------------------------------------" << endl;
-        cout << "Total Used: " << storage << " KB" << endl;
+      
     }
 
 };
