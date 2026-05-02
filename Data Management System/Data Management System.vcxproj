@@ -24,6 +24,7 @@
     <ProjectGuid>{67e10ff2-e314-46fb-b88c-21d7b4a00327}</ProjectGuid>
     <RootNamespace>DataManagementSystem</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Data_Management_System</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -123,7 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Data Management System.cpp" />
+    <ClCompile Include="Data_Management_System.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h" />
