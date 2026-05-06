@@ -66,9 +66,58 @@ public:
         }
 
     }
+   
+    void coalescing() {
+        if (head == NULL) return;
 
+        node* current = head;
+        node* prev = NULL;
 
+        // Step 1: Make sure tail is actually the last node
+        tail = head;
+        while (tail->next != NULL) {
+            tail = tail->next;
+        }
 
+        // Step 2: Ensure tail is FREE
+        if (tail->process != "FREE") {
+            node* newFree = new node();
+            newFree->process = "FREE";
+            newFree->memory = 0;
+            newFree->next = NULL;
+
+            tail->next = newFree;
+            tail = newFree;
+        }
+
+        // Step 3: Remove all other FREE nodes
+        current = head;
+        prev = NULL;
+
+        while (current != NULL) {
+
+            if (current != tail && current->process == "FREE") {
+
+                tail->memory += current->memory;
+
+                if (current == head) {
+                    head = current->next;
+                    delete current;
+                    current = head;
+                }
+                else {
+                    prev->next = current->next;
+                    delete current;
+                    current = prev->next;
+                }
+
+            }
+            else {
+                prev = current;
+                current = current->next;
+            }
+        }
+    }
     void best_fit(string proce,int size) {
         node* current = head;
         node* temp = head;
