@@ -118,6 +118,40 @@ public:
             }
         }
     }
+
+    void first_fit(string proce, int size) {
+        node* current = head;
+
+        while (current != NULL) {
+
+            if (current->process == "FREE" && current->memory >= size) {
+
+                // Split block if larger
+                if (current->memory > size) {
+                    node* temp = new node("FREE", current->memory - size);
+
+                    temp->next = current->next;
+                    current->next = temp;
+
+                    if (current == tail) {
+                        tail = temp;
+                    }
+                }
+
+                current->memory = size;
+                current->process = proce;
+
+                cout << "Allocated using First Fit\n";
+                return;
+            }
+
+            current = current->next;
+        }
+
+        cout << "No suitable block (First Fit)\n";
+
+    }
+
     void best_fit(string proce,int size) {
         node* current = head;
         node* temp = head;
