@@ -67,6 +67,8 @@ public:
 
     }
    
+    // compaction and coalescing function
+
     void coalescing() {
         if (head == NULL) return;
 
@@ -194,6 +196,70 @@ public:
 
     
     }
+
+
+    void worst_fit(string proce, int size) {
+    node* current = head;
+    node* worst = NULL;
+
+    // Step 1: find largest free block
+    while (current != NULL) {
+
+        if (current->process == "FREE" && current->memory >= size) {
+
+            if (worst == NULL || current->memory > worst->memory) {
+                worst = current;
+            }
+        }
+
+        current = current->next;
+    }
+
+    // Step 2: if no block found
+    if (worst == NULL) {
+        cout << "No suitable block (Worst Fit)\n";
+        return;
+    }
+
+    // Step 3: allocate memory
+    if (worst->memory > size) {
+
+        node* temp = new node("FREE", worst->memory - size);
+
+        temp->next = worst->next;
+        worst->next = temp;
+
+        if (worst == tail) {
+            tail = temp;
+        }
+    }
+
+    worst->memory = size;
+    worst->process = proce;
+
+    cout << "Allocated using Worst Fit\n";
+}
+
+
+
+void free_process(string p) {
+    node* curr = head;
+
+    while (curr != NULL) {
+
+        if (curr->process == p) {
+            curr->process = "FREE";
+
+            cout << "Process Freed\n";
+            return;
+        }
+
+        curr = curr->next;
+    }
+
+    cout << "Process Not Found\n";
+}
+
 
     void display() {
         

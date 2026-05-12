@@ -27,8 +27,11 @@ void titleScreen()
     cout << "\n  FEATURES\n\n";
     cout << "   [1] First Fit Allocation\n";
     cout << "   [2] Best Fit Allocation\n";
-    cout << "   [3] Coalescing Free Blocks\n";
-    cout << "   [4] Dynamic Memory Visualization\n";
+	cout << "   [3] Worst Fit Allocation\n";
+    cout << "   [4] Compaction Free Blocks\n";
+	cout << "   [5] Reset Back to Initial\n";
+	cout << "   [6] Free Process\n";
+    cout << "   [7] Dynamic Memory Visualization\n";
 
     color(7);
 }
@@ -72,16 +75,18 @@ void simulationMenu()
 
     cout << "\n";
     cout << " =========================================================\n";
-    cout << "                MEMORY ALLOCATION METHODS                \n";
+    cout << "           MEMORY ALLOCATION AND MANAGEMENT METHODS                \n";
     cout << " =========================================================\n";
 
     color(10);
 
     cout << "\n  [1] Best Fit Allocation\n";
     cout << "  [2] First Fit Allocation\n";
-    cout << "  [3] Coalescing\n";
-    cout << "  [4] Exit\n";
+    cout << "  [3] Worst Fit Allocation\n";
+    cout << "  [4] Compaction Free Blocks\n";
     cout << "  [5] Reset Back to Initial\n";
+	cout << "  [6] Free Process\n";
+	cout << "  [7] Exit\n";
 
     color(14);
     cout << "\n ---------------------------------------------------------\n";
@@ -203,26 +208,72 @@ int main()
             {
                 system("cls");
 
-                allocationWindow("COALESCING FREE MEMORY");
+                allocationWindow("WORST FIT ALLOCATION");
+
+                cout << "\nEnter Memory Size : ";
+                cin >> memory;
+
+                cout << "Enter Process Name : ";
+                cin >> process;
 
                 loading();
 
-                list.coalescing();
+                list.worst_fit(process, memory);
 
                 color(10);
-                cout << "\n\nMemory Coalesced Successfully!\n";
+                cout << "\n\nAllocation Successful!\n";
 
                 color(7);
                 system("pause");
             }
+
+
             else if (option == 4)
-            {
-                quit = true;
-            }
-            else if (option == 5) {
+			{
+				system("cls");
+
+				allocationWindow("COMPACTING FREE BLOCKS");
+
+				loading();
+
+				list.coalescing();
+
+				color(10);
+				cout << "\n\nCompaction Successful!\n";
+
+				color(7);
+				system("pause");
+			}
+
+			 else if (option == 5) {
                 list.reset();
             
             }
+
+			 else if (option == 6) {
+				system("cls");
+
+				allocationWindow("FREE PROCESS");
+
+				cout << "\nEnter Process Name to Free : ";
+				cin >> process;
+
+				loading();
+
+				list.free_process(process);
+
+				color(10);
+				cout << "\n\nProcess Freed Successfully!\n";
+
+				color(7);
+				system("pause");
+			}
+
+            else if (option == 7)
+            {
+                quit = true;
+            }
+           
             else
             {
                 color(12);
