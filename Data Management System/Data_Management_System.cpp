@@ -81,6 +81,7 @@ void simulationMenu()
     cout << "  [2] First Fit Allocation\n";
     cout << "  [3] Coalescing\n";
     cout << "  [4] Exit\n";
+    cout << "  [5] Reset Back to Initial\n";
 
     color(14);
     cout << "\n ---------------------------------------------------------\n";
@@ -217,6 +218,10 @@ int main()
             else if (option == 4)
             {
                 quit = true;
+            }
+            else if (option == 5) {
+                list.reset();
+            
             }
             else
             {

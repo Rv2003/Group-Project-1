@@ -4,14 +4,14 @@ using namespace std;
 
 class node  {  
 public:
-    string process; // to store the process name
+    string process; 
     int memory;
     node* next;
 
     node() {
 
         process = "FREE";
-        next = NULL;   //default constructor
+        next = NULL;   
         memory =0;
 
     }
@@ -19,7 +19,7 @@ public:
     node(string e,int size) {
 
         process = e;
-        next = NULL;   //overloaded constructor 
+        next = NULL;  
         memory = size;
     }
 };
@@ -30,11 +30,11 @@ private:
     node* head;
     node* tail;
     int storage;
-    bool freeAdded = false;  // to fix adding free node at the end repetedly each time calling display
+    bool freeAdded = false;  
     
 public:
     int max = 16384;
-    singly_linked_list() {  //input the size of the memory block
+    singly_linked_list() {  
 
         head = NULL;
         tail = NULL;
@@ -73,13 +73,11 @@ public:
         node* current = head;
         node* prev = NULL;
 
-        // Step 1: Make sure tail is actually the last node
         tail = head;
         while (tail->next != NULL) {
             tail = tail->next;
         }
 
-        // Step 2: Ensure tail is FREE
         if (tail->process != "FREE") {
             node* newFree = new node();
             newFree->process = "FREE";
@@ -90,7 +88,7 @@ public:
             tail = newFree;
         }
 
-        // Step 3: Remove all other FREE nodes
+        
         current = head;
         prev = NULL;
 
@@ -126,7 +124,6 @@ public:
 
             if (current->process == "FREE" && current->memory >= size) {
 
-                // Split block if larger
                 if (current->memory > size) {
                     node* temp = new node("FREE", current->memory - size);
 
@@ -230,5 +227,30 @@ public:
         cout << "------------------------------------------" << endl;
       
     }
+    void reset() {
 
+        
+        node* current = head;
+
+        while (current != NULL) {
+            node* temp = current;
+            current = current->next;
+            delete temp;
+        }
+
+       
+        head = NULL;
+        tail = NULL;
+
+        max = 16384;
+        storage = 0;
+        freeAdded = false;
+
+       
+        allocate_memory(1024, "FREE");
+        allocate_memory(2048, "FREE");
+        allocate_memory(3072, "B");
+        allocate_memory(1048, "D");
+        allocate_memory(800, "FREE");
+    }
 };
