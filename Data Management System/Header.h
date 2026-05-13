@@ -67,7 +67,7 @@ public:
 
     }
    
-    // compaction and coalescing function
+    
 
     void coalescing() {
         if (head == NULL) return;
@@ -202,7 +202,7 @@ public:
     node* current = head;
     node* worst = NULL;
 
-    // Step 1: find largest free block
+    
     while (current != NULL) {
 
         if (current->process == "FREE" && current->memory >= size) {
@@ -214,14 +214,13 @@ public:
 
         current = current->next;
     }
-
-    // Step 2: if no block found
+    
     if (worst == NULL) {
         cout << "No suitable block (Worst Fit)\n";
         return;
     }
 
-    // Step 3: allocate memory
+    
     if (worst->memory > size) {
 
         node* temp = new node("FREE", worst->memory - size);
